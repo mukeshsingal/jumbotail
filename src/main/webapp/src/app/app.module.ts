@@ -6,7 +6,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {AdminComponent} from './admin/admin/admin.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatTableModule} from '@angular/material';
 
@@ -15,8 +14,7 @@ import {MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSnackBarModule
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
-    DashboardComponent
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +29,7 @@ import {MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSnackBarModule
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent},
-      {path: 'admin', component: AdminComponent},
-      {path: 'dashboard', component: DashboardComponent}
+      {path: 'admin', component: AdminComponent}
     ])
   ],
   providers: [],
