@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent {
   public dataKeys
 
   constructor(private http: HttpClient) {
-    this.http.get(this.API + '/questions').subscribe(
+    /*this.http.get(this.API + '/questions').subscribe(
       data => {
         this.data = data
         console.log(data);
@@ -24,7 +24,7 @@ export class AppComponent {
       () => console.log('done loading foods')
     );
 
-    this.dataKeys = this.data.keys
+    this.dataKeys = this.data.keys*/
   }
 }
 

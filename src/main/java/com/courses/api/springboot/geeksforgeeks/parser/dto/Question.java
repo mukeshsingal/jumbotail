@@ -18,6 +18,7 @@ public class Question {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "question_id")
     private String id;
+    @Column(unique = true)
     private String title;
     private String description;
     private String questionRating;

@@ -17,22 +17,17 @@ import java.util.List;
 
 public class GFGParser {
 
-
-    public static HashMap<String, List<Question>> getAllQuestions(String mainPageUrl) {
-
-        HashMap<String, List<Question>> questionsByCompanyName = new HashMap<>();
+    public static List<Question> getAllQuestions(String mainPageUrl) {
+        List<Question> questions = new ArrayList<>();
         HashMap<String, List<String>> questionsUrlsByCompany = getQuestionUrlsCompanyWise(mainPageUrl);
-
         questionsUrlsByCompany.forEach((companyName, questionUrls) -> {
-            List<Question> questions = new ArrayList<>();
             questionUrls.forEach(url -> {
-                System.out.println("Processing " + companyName + " : " + url);
+                System.out.println("[ === Processing " + companyName + " : " + url + " === ]");
                 questions.add(ParserFactory.getBaseQuestionParser(url).getQuestion(url));
             });
-            questionsByCompanyName.put(companyName, questions);
         });
 
-        return questionsByCompanyName;
+        return questions;
     }
 
     public static HashMap<String, List<String>> getQuestionUrlsCompanyWise(String mainPageUrl) {
@@ -51,6 +46,8 @@ public class GFGParser {
 
                 if (companyName == null)
                     break;
+
+                companyName = companyName.replace(":", "").trim();
 
                 while (e.nodeName() != "ol" && i < elements.size()) {
                     e = elements.get(i);

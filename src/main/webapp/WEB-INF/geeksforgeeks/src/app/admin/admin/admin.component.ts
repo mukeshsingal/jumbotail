@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
+
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 let headers = new HttpHeaders();
@@ -14,6 +15,7 @@ export class AdminComponent implements OnInit {
   data;
   public url = 'https://practice.geeksforgeeks.org/problems/subarray-with-given-sum/0'
   public rooturl = 'http://localhost:8081/question';
+
   constructor(private http: HttpClient) {
   }
 
@@ -22,15 +24,13 @@ export class AdminComponent implements OnInit {
 
   public submit(GfgUrlForm) {
     console.log(GfgUrlForm.value.url)
-
-    this.http.post(this.rooturl, {  "url" : GfgUrlForm.value.url } ,{headers: headers}).subscribe(
-
+    /*this.http.post(this.rooturl, {"url": GfgUrlForm.value.url}, {headers: headers}).subscribe(
       data => {
         this.data = data;
         console.log(data);
       },
       err => console.error(err),
       () => console.log('done loading foods')
-    );
+    );*/
   }
 }

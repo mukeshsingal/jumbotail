@@ -5,6 +5,7 @@ import com.courses.api.springboot.geeksforgeeks.parser.parser.GFGParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,16 +25,36 @@ public class GFGController {
         return GFGParser.getQuestionUrlsCompanyWise(mainPage);
     }
 
-    @GetMapping("/questions/all")
-    public HashMap<String, List<Question>> getAllQuestionJson() {
-        return GFGParser.getAllQuestions(mainPage);
+    @RequestMapping(method = RequestMethod.POST, value = "/api/save/all")
+    public void getAllQuestionJson(@RequestBody PostRequestBody postRequestBody) {
+        System.out.println("\n[  ==== JumboTail Parser started  ==== ]");
+        System.out.println("[  ==== URL : " + postRequestBody.getUrl() + "==== ]");
+        List<Question> allQuestions = GFGParser.getAllQuestions(mainPage);
+        for (Question q : allQuestions) {
+            try {
+                this.gfgRepository.save(q);
+            } catch (Exception e) {
+                System.out.println("[ ==== Exception occurred : " + e.getLocalizedMessage() + " === ]");
+            }
+        }
+        System.out.println("[  ==== JumboTail Parser Finished ==== ]");
+        System.out.println("[  ==== Saved " + allQuestions.size() + " rows successfully ==== ]");
     }
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.POST, value ="/question")
-    public Question getQuestion(@RequestBody PostRequestBody postRequestBody) {
+    @RequestMapping(method = RequestMethod.POST, value = "/api/save")
+    public void getQuestion(@RequestBody PostRequestBody postRequestBody) {
+        System.out.println("\n[  ==== JumboTail Parser started  ==== ]");
+        System.out.println("[  ==== URL : " + postRequestBody.getUrl() + "==== ]");
         Question question = GFGParser.getQuestion(postRequestBody.getUrl());
-        this.gfgRepository.save(question);
-        return question;
+
+        try {
+            this.gfgRepository.save(question);
+        } catch (Exception e) {
+            System.out.println("[ ==== Exception occurred : " + e.getLocalizedMessage() + " === ]");
+        }
+
+        System.out.println("[  ==== JumboTail Parser Finished ==== ]");
+        System.out.println("[  ==== Saved 1 rows successfully ==== ]");
     }
 }

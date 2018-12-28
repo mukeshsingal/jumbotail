@@ -1,13 +1,22 @@
 # Geeksforgeeks
 
+
+This project implement below API's 
+
+|Request Method|Root|Parameters|Description|
+|---|---|---|----|
+|GET|`/api/questions`|NA|This api will return all the questions available in database|
+|GET|`/api/questions/:id`|NA|This api will return question with id available in database|
+|POST|`/api/save`|This parameter takes body parameter ```{"url" : "http://geeeksforgeeks.org/question_id"}```|This will save the question in database|
+|POST|`/api/save/all`|This parameter takes body parameter ```{"url" : "http://geeeksforgeeks.org/question_id"}```|This will save all the children questions in database|
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
 ## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Navigate to `src/main/webapp/WEB-INF/geeksforgeeks` and run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
-
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
