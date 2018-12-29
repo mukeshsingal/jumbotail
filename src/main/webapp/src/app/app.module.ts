@@ -7,21 +7,33 @@ import {AdminComponent} from './admin/admin/admin.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatTableModule} from '@angular/material';
-
+import {
+  MatButtonModule,
+  MatCheckboxModule, MatChipsModule, MatDialogModule,
+  MatFormFieldModule, MatIconModule,
+  MatInputModule,
+  MatSnackBarModule,
+  MatTableModule
+} from '@angular/material';
+import {NotesDialogComponent} from './notes-dialog/notes-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent
+    AdminComponent,
+    NotesDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatCheckboxModule,
+    MatIconModule,
+    MatButtonModule,
+    MatChipsModule,
     FormsModule,
+    MatDialogModule,
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
@@ -31,6 +43,9 @@ import {MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSnackBarModule
       {path: '', component: AppComponent},
       {path: 'admin', component: AdminComponent}
     ])
+  ],
+  entryComponents: [
+    NotesDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

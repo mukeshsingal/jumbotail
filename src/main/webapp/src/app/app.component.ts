@@ -1,8 +1,9 @@
-import {OnInit} from '@angular/core';
+import {Inject, OnInit} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Component} from '@angular/core';
-import {MatCheckboxChange, MatSnackBar, MatTableDataSource} from '@angular/material';
+import {MAT_DIALOG_DATA, MatCheckboxChange, MatDialog, MatDialogRef, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {NotesDialogComponent} from './notes-dialog/notes-dialog.component';
 
 
 export interface PeriodicElement {
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
   public dataSource;
   public selection = new SelectionModel<PeriodicElement>(true, []);
 
-  constructor(public http: HttpClient, public snackBar: MatSnackBar) {
+  constructor(public http: HttpClient, public snackBar: MatSnackBar, public dialog: MatDialog) {
     let scopeObject = this;
     this.http.get(this.queryEndpoint).subscribe(
       data => {
@@ -80,11 +81,21 @@ export class AppComponent implements OnInit {
     console.log(this.tableDataArray);
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NotesDialogComponent, {
+      width: '1000px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   ngOnInit() {
     console.log(this.tableDataArray);
   }
 
-  displayedColumns: string[] = ['select', 'SN', 'Title', 'Difficulty', 'Rating', 'Topic Tags', 'Company Tags'];
+  displayedColumns: string[] = ['select', 'SN', 'Title', 'Difficulty', 'Rating', 'Topic Tags', 'Company Tags', 'Notes'];
 
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -129,3 +140,5 @@ export class AppComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
+
+
