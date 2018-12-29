@@ -1,13 +1,11 @@
-package com.courses.api.springboot.geeksforgeeks.parser;
+package com.courses.api.springboot.geeksforgeeks.parser.question;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.Question;
-import com.courses.api.springboot.geeksforgeeks.parser.parser.GFGParser;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -45,4 +43,6 @@ public class GfgService {
         previousQuestion.setStatus(question.getStatus());
         this.gfgRepository.save(previousQuestion);
     }
+
+
 }

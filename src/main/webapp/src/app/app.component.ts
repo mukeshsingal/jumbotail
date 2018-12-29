@@ -21,6 +21,12 @@ export interface CompanyTag {
   name: String;
 }
 
+export interface Notes {
+  id: string;
+  notes: string;
+  questionId: string;
+}
+
 export interface TopicTag {
   id: string;
   name: String;
@@ -58,13 +64,13 @@ export class AppComponent implements OnInit {
             if (data.title.toLowerCase().indexOf(filter.toLowerCase()) >= 0) return true;
             if (data.difficultyLevel.toLowerCase().indexOf(filter.toLowerCase()) >= 0) return true;
 
-            console.log(data.difficultyLevel)
-            console.log(filter)
+            console.log(data.difficultyLevel);
+            console.log(filter);
 
             if (data.questionRating.toLowerCase().indexOf(filter.toLowerCase()) >= 0) return true;
             if (data.companyTags.find(value => value.name.toLowerCase().startsWith(filter)) != undefined) return true;
             if (data.topicTags.find(value => value.name == filter) != undefined) return true;
-          }
+          };
 
         var newArray = scopeObject.tableDataArray.filter(function (objects) {
           return objects.status == 'DONE';
@@ -81,14 +87,55 @@ export class AppComponent implements OnInit {
     console.log(this.tableDataArray);
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(NotesDialogComponent, {
-      width: '1000px',
-    });
+  openDialog(row): void {
+    let notesContent = "";
+    this.http.get<Notes>('http://localhost:8081/api/note/' + row.id).subscribe(
+      data => {
+        let notes = "";
+        let header;
+        if(data != undefined)  {
+          notes = data.notes;
+        }
+        const dialogRef = this.dialog.open(NotesDialogComponent, {
+          width: '1000px',
+          data : {
+            "myrow" : row,
+            'notes' : notes
+          }
+        });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+        dialogRef.afterClosed().subscribe(result => {
+          if(result == undefined)  {
+            console.log('The dialog was closed' + result);
+          }
+          else {
+            let x;
+            if(data != undefined) {
+              x = {'id': data.id, 'questionId': row.id, 'notes': result};
+            }
+            else {
+              x = {'questionId': row.id, 'notes': result};
+            }
+            this.http.post('http://localhost:8081/api/notes/', x, {headers: headers}).subscribe(
+              data => {
+                let message = "Notes updated"
+                this.snackBar.open(message, '', {
+                  duration: 6000,
+                  verticalPosition: 'bottom',
+                  horizontalPosition: 'end'
+                });
+              },
+              err => console.error(err),
+              () => console.log('')
+            );
+          }
+        });
+      },
+      err => console.error(err),
+      () => console.log('Printed all the data from database')
+    );
+
+
   }
 
   ngOnInit() {
@@ -136,7 +183,7 @@ export class AppComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    console.log("Called filter " + filterValue)
+    console.log('Called filter ' + filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

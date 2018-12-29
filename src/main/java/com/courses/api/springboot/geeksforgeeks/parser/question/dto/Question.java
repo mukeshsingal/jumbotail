@@ -1,4 +1,4 @@
-package com.courses.api.springboot.geeksforgeeks.parser.dto;
+package com.courses.api.springboot.geeksforgeeks.parser.question.dto;
 
 
 import org.hibernate.annotations.GenericGenerator;

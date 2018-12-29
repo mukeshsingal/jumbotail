@@ -1,14 +1,11 @@
-<div class="w-100">
-
+<div class="">
+  <div class="px-5">
+    <mat-form-field>
+      <input matInput class="w-100" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
   <div class="row">
-    <div class="col-3 px-5">
-
-      <mat-form-field>
-        <input matInput class="w-100" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-    </div>
-    <div></div>
-    <div class="col-9 p-1">
+    <div class="px-5">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!-- Checkbox Column -->
 
@@ -92,7 +89,7 @@
           <th mat-header-cell class="mat-column-companyTags" *matHeaderCellDef> Notes
           </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-raised-button (click)="openDialog()">
+            <button mat-raised-button (click)="openDialog(element)">
               <mat-icon>note</mat-icon>
             </button>
 

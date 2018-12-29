@@ -1,6 +1,8 @@
 package com.courses.api.springboot.geeksforgeeks.parser.parser.impl;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.*;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.CompanyTag;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.DifficultyLevel;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.TopicTag;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 

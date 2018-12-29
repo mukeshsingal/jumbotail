@@ -1,6 +1,6 @@
 package com.courses.api.springboot.geeksforgeeks.parser.parser;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.Question;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.Question;
 import com.courses.api.springboot.geeksforgeeks.parser.parser.impl.BaseParser;
 import com.courses.api.springboot.geeksforgeeks.parser.parser.impl.ParserFactory;
 

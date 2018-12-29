@@ -1,16 +1,15 @@
 package com.courses.api.springboot.geeksforgeeks.parser.parser.impl;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.Question;
-import com.courses.api.springboot.geeksforgeeks.parser.dto.Status;
-import com.courses.api.springboot.geeksforgeeks.parser.dto.CompanyTag;
-import com.courses.api.springboot.geeksforgeeks.parser.dto.TopicTag;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.Question;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.Status;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.CompanyTag;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.TopicTag;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 public interface BaseParser {

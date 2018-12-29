@@ -39,6 +39,7 @@ import {NotesDialogComponent} from './notes-dialog/notes-dialog.component';
     MatInputModule,
     MatTableModule,
     ReactiveFormsModule,
+
     RouterModule.forRoot([
       {path: '', component: AppComponent},
       {path: 'admin', component: AdminComponent}
