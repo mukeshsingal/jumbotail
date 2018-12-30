@@ -1,17 +1,29 @@
 <h2 mat-dialog-title="">{{data.myrow.title}}</h2>
+
 <mat-dialog-content>
-    Add some notes, etc
+  Add some notes, etc
 </mat-dialog-content>
+
+
 <mat-dialog-actions>
   <div class="container">
     <div class="row ">
-      <textarea class="w-100" #textModel [value]="data.notes" rows="20">
+      <textarea class="w-100" #textModel [value]="data.notes" rows="5">
 
       </textarea>
     </div>
     <div class="w-100 m-4">
-      <button mat-raised-button class="float-right" color="accent" (click)="save(textModel.value)">Save</button>
-      <button mat-raised-button mat-dialog-close class="float-right mr-3">Cancel</button>
+      <button mat-raised-button
+              class="float-right"
+              color="accent"
+              (click)="save(textModel.value)">
+        Save
+      </button>
+      <button mat-raised-button
+              class="float-right  mr-3"
+              (click)="canceled(textModel.value)">
+        Cancel
+      </button>
     </div>
   </div>
 

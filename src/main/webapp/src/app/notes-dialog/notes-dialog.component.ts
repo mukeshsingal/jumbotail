@@ -8,13 +8,18 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class NotesDialogComponent implements OnInit {
 
-  constructor( public dialogRef: MatDialogRef<NotesDialogComponent>,
-               @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogRef: MatDialogRef<NotesDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   ngOnInit() {
   }
 
-  save(content : string) {
-    this.dialogRef.close(content);
+  save(content: string) {
+    this.dialogRef.close({'content': content, 'trigger': 'saved'});
+  }
+
+  canceled(content: string) {
+    this.dialogRef.close({'content': content, 'trigger': 'canceled'});
   }
 }

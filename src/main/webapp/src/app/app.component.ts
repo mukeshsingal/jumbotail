@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
 
             if (data.questionRating.toLowerCase().indexOf(filter.toLowerCase()) >= 0) return true;
             if (data.companyTags.find(value => value.name.toLowerCase().startsWith(filter)) != undefined) return true;
-            if (data.topicTags.find(value => value.name == filter) != undefined) return true;
+            if (data.topicTags.find(value => value.name.toLowerCase().startsWith(filter)) != undefined) return true;
           };
 
         var newArray = scopeObject.tableDataArray.filter(function (objects) {
@@ -88,37 +88,36 @@ export class AppComponent implements OnInit {
   }
 
   openDialog(row): void {
-    let notesContent = "";
     this.http.get<Notes>('http://localhost:8081/api/note/' + row.id).subscribe(
       data => {
-        let notes = "";
-        let header;
-        if(data != undefined)  {
+        let notes = '';
+        if (data != undefined) {
           notes = data.notes;
         }
         const dialogRef = this.dialog.open(NotesDialogComponent, {
-          width: '1000px',
-          data : {
-            "myrow" : row,
-            'notes' : notes
+          height: '300px',
+          width: '500px',
+          data: {
+            'myrow': row,
+            'notes': notes
           }
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          if(result == undefined)  {
-            console.log('The dialog was closed' + result);
+          if (result.trigger == 'canceled') {
+            console.log('The dialog was closed with canceled' + result);
           }
           else {
             let x;
-            if(data != undefined) {
-              x = {'id': data.id, 'questionId': row.id, 'notes': result};
+            if (data != undefined) {
+              x = {'id': data.id, 'questionId': row.id, 'notes': result.content};
             }
             else {
-              x = {'questionId': row.id, 'notes': result};
+              x = {'questionId': row.id, 'notes': result.content};
             }
             this.http.post('http://localhost:8081/api/notes/', x, {headers: headers}).subscribe(
               data => {
-                let message = "Notes updated"
+                let message = 'Notes updated';
                 this.snackBar.open(message, '', {
                   duration: 6000,
                   verticalPosition: 'bottom',
@@ -160,10 +159,6 @@ export class AppComponent implements OnInit {
   }
 
   getCheckBoxEvent(event: MatCheckboxChange, selection: SelectionModel<PeriodicElement>, row) {
-    console.log(event);
-    console.log(selection);
-    console.log(row);
-
     let newStatus = event.checked ? 'DONE' : 'NOT_DONE';
     this.http.post('http://localhost:8081/api/question/' + row.id + '/status', {'status': newStatus}, {headers: headers}).subscribe(
       data => {
@@ -173,7 +168,9 @@ export class AppComponent implements OnInit {
         this.snackBar.open(message, '', {
           duration: 6000,
           verticalPosition: 'bottom',
-          horizontalPosition: 'end'
+          horizontalPosition: 'end',
+          panelClass: ['bg-secondary', 'text-white']
+
         });
         return event ? selection.toggle(row) : null;
       },
