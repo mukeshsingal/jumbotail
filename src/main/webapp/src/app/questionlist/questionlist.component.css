@@ -1,0 +1,47 @@
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+
+/* .example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+} */
+
+
+table {
+  width: 100%;
+}
+
+.mat-table__wrapper .mat-table {
+  min-width: 100% !important;
+  width: 100% !important;
+}
+
+.mat-header-row {
+  width: 100%;
+}
+
+.mat-row {
+  width: 100%;
+}
+
+.mat-drawer-content {
+  overflow: hidden !important;
+}
+
+.mat-sidenav-content { 
+  overflow: hidden !important;
+}
