@@ -1,14 +1,24 @@
 package com.courses.api.springboot.geeksforgeeks.parser.parser.impl;
 
-import com.courses.api.springboot.geeksforgeeks.parser.question.dto.CompanyTag;
-import com.courses.api.springboot.geeksforgeeks.parser.question.dto.DifficultyLevel;
-import com.courses.api.springboot.geeksforgeeks.parser.question.dto.TopicTag;
+import com.courses.api.springboot.geeksforgeeks.parser.question.GfgRepository;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.*;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class PracticeQuestionParser implements BaseParser {
+
+    @Autowired
+    public TopicsRepository topicsRepository;
+    @Autowired
+    public CompanyTagsRepository companyTagsRepository;
+    @Autowired
+    public GfgRepository gfgRepository;
 
     public String getQuestionTitle(Element document) {
         Elements entryContent = document.getElementsByClass("problemTitle");
@@ -17,28 +27,51 @@ public class PracticeQuestionParser implements BaseParser {
     }
 
     public Set<CompanyTag> getCompanyTags(Element document) {
-        Element fullPageDiv = document.getElementsByClass("fullPageDiv").first();
-        Element secondDiv = fullPageDiv.child(1);
-        Element contentRows = secondDiv.child(0).child(0).child(0);
-        Element questionTag = contentRows.child(1).child(1);
+
         Set<CompanyTag> tagList = new HashSet<>();
-        for (Element e : questionTag.children()) {
-            tagList.add(new CompanyTag(getText(e.text())));
+
+        Element fullPageDiv = document.getElementsByClass("showTag").first();
+        Elements children = fullPageDiv.parent().parent().child(1).children();
+
+        for (Element e: children) {
+            if(!e.text().equals("Company Tags")) {
+                CompanyTag tag = this.companyTagsRepository.findByName(getText(e.text()));
+                if(tag == null) {
+                    System.out.println("tag is null");
+                    CompanyTag newTag = new CompanyTag(getText(e.text()));
+                    tagList.add(newTag);
+                    this.companyTagsRepository.save(newTag);
+                }
+                else {
+                    tagList.add(tag);
+                }
+            }
         }
         return tagList;
     }
 
     public Set<TopicTag> getQuestionTags(Element document) {
-        Element fullPageDiv = document.getElementsByClass("fullPageDiv").first();
-        Element secondDiv = fullPageDiv.child(1);
-        Element contentRows = secondDiv.child(0).child(0).child(0);
-        Element questionTag = contentRows.child(1).child(0);
-        HashSet<TopicTag> topicList = new HashSet<>();
-        for (Element e : questionTag.children()) {
-            if (e.nodeName().equals("a"))
-                topicList.add(new TopicTag(getText(e.text())));
+        Set<TopicTag> tagList = new HashSet<>();
+
+        Element fullPageDiv = document.getElementsByClass("showTag").first();
+        Elements children = fullPageDiv.parent().children();
+
+        for (Element e: children) {
+            if(!e.text().equals("Show Topic Tags") && !e.text().equals("Hide Topic Tags")) {
+
+                TopicTag tag = this.topicsRepository.findByName(getText(e.text()));
+                if(tag == null) {
+                    System.out.println("tag is null");
+                    TopicTag newTag = new TopicTag(getText(e.text()));
+                    tagList.add(newTag);
+                    this.topicsRepository.save(newTag);
+                }
+                else {
+                    tagList.add(tag);
+                }
+            }
         }
-        return topicList;
+        return tagList;
     }
 
     public HashMap<String, String> getDifficultyLevel(Element document) {

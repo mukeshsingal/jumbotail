@@ -27,25 +27,36 @@ public class Question {
 
     private String status;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+    @ManyToMany (cascade = {CascadeType.MERGE})
+//    @JoinTable(name = "company_tag_join",
+//            joinColumns = @JoinColumn(name = "question_id"),
+//            inverseJoinColumns = @JoinColumn(name = "company_id")
+//    )
+
+    @JoinColumns({
+            @JoinColumn(
+                    name = "question_id",
+                    referencedColumnName = "question_id"),
+            @JoinColumn(
+                    name = "company_id",
+                    referencedColumnName = "company_id")
     })
-    @JoinTable(name = "company_tag_join",
-            joinColumns = @JoinColumn(name = "question_id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id")
-    )
     private Set<CompanyTag> companyTags;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+    @ManyToMany (cascade = {CascadeType.MERGE})
 
-    @JoinTable(name = "topic_tag_join",
-            joinColumns ={ @JoinColumn(name = "question_id")},
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
+//    @JoinTable(name = "topic_tag_join",
+//            joinColumns ={ @JoinColumn(name = "question_id")},
+//            inverseJoinColumns = @JoinColumn(name = "tag_id")
+//    )
+    @JoinColumns({
+            @JoinColumn(
+                    name = "tag_id",
+                    referencedColumnName = "tag_id"),
+            @JoinColumn(
+                    name = "question_id",
+                    referencedColumnName = "question_id")
+    })
     private Set<TopicTag> topicTags;
 
     public String getId() {

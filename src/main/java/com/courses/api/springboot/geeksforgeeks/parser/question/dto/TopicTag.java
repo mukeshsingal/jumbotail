@@ -3,6 +3,7 @@ package com.courses.api.springboot.geeksforgeeks.parser.question.dto;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
 
 
 @Entity
@@ -11,6 +12,10 @@ public class TopicTag {
 
     public TopicTag(String name) {
         this.name = name;
+    }
+    public TopicTag(String id, String name) {
+        this.name = name;
+        this.id = id;
     }
 
     public String getId() {
@@ -27,6 +32,7 @@ public class TopicTag {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
+    @Column(unique = true)
     private String name;
 
     public String getName() {

@@ -13,12 +13,16 @@ public class CompanyTag {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
+    @Column(unique = true)
     private String name;
 
     public CompanyTag() {}
 
     public CompanyTag(String name) {
         this.name = name;
+    }
+    public CompanyTag(String id, String name) {
+        this.name = name; this.id = id;
     }
 
     public String getName() {

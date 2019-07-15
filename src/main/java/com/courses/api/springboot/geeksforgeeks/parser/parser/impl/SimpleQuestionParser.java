@@ -5,10 +5,12 @@ import com.courses.api.springboot.geeksforgeeks.parser.question.dto.DifficultyLe
 import com.courses.api.springboot.geeksforgeeks.parser.question.dto.TopicTag;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Stream;
 
+@Component
 public class SimpleQuestionParser implements BaseParser {
 
     public String getQuestionTitle(Element document) {

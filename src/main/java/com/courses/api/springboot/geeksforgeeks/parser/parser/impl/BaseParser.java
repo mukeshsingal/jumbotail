@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public interface BaseParser {
+
     default Question getQuestion(String url) {
 
         Question question = new Question();
