@@ -1,12 +1,16 @@
 package com.courses.api.springboot.geeksforgeeks.parser.parser.impl;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.*;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.CompanyTag;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.DifficultyLevel;
+import com.courses.api.springboot.geeksforgeeks.parser.question.dto.TopicTag;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Stream;
 
+@Component
 public class SimpleQuestionParser implements BaseParser {
 
     public String getQuestionTitle(Element document) {

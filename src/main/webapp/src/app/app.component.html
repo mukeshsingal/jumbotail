@@ -1,0 +1,49 @@
+<ng-container>
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="true"
+      style="width: 220px">
+     <ul class="list-group ">
+        <li class="list-group-item list-group-item-action">
+          <a class="nav-link" [routerLink]="[ {outlets: {left: ['questions']}} ]">
+            <mat-icon>Amazon</mat-icon>
+            Amazon
+          </a>
+        </li>
+        <li class="list-group-item list-group-item-action">
+            <a class="nav-link" [routerLink]="[{outlets: {left: ['home']}} ]">
+              <mat-icon>Home</mat-icon>
+              Home
+            </a>
+          </li>
+
+      </ul>
+
+    </mat-sidenav>
+    <mat-sidenav-content [formGroup]="options">
+        <navbar (navToggle)="sidenav.toggle()"></navbar>
+        <router-outlet name="left"></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+      
+  
+  
+  
+<!-- 
+  <mat-drawer-container class="example-container" [hasBackdrop]="true">
+      <mat-drawer #drawer [mode]="1">I'm a drawer</mat-drawer>
+      <mat-drawer-content>
+              <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button> -->
+              <!-- <router-outlet></router-outlet>
+      </mat-drawer-content>
+  </mat-drawer-container> -->
+  
+</ng-container>
+
+
+
+ <!-- <mat-drawer-container class="example-container" [hasBackdrop]="false">
+    <mat-drawer #drawer mode="push">I'm a drawer</mat-drawer>
+    <mat-drawer-content>
+        <navbar (navToggle)="drawer.toggle()"></navbar>
+    </mat-drawer-content>
+  </mat-drawer-container> -->

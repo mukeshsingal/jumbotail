@@ -1,0 +1,27 @@
+<nav id="nav01" class="navbar navbar-expand-lg navbar-dark bg-dark" (onscroll)="addClassToNav()">
+  
+  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon">ASCASCA</span>
+  </button> -->
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <div >
+          <a class="nav-link" (click)="navOpen()">
+            <mat-icon class="panel-heading" color="white">menu</mat-icon>
+            <!-- <span>Menu</span> -->
+            <span class="sr-only">(current)</span>
+          </a>
+      </div>
+      </li>
+    </ul>
+
+  </div>
+  <a class="navbar-brand font-weight-light" href="#">Mukesh Singal</a>
+  <form class="form-inline my-2 my-lg-0">
+    <button mat-raised-button color="primary" class="mr-2" style="min-width: 30px;">f</button>
+    <button mat-raised-button color="accent" style="min-width: 30px;">t</button>
+  </form>
+</nav>
